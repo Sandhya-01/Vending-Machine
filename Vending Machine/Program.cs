@@ -109,7 +109,7 @@ namespace VendingMachine
 
             Console.WriteLine("**************WELCOME**************");
             Console.WriteLine("Please Insert the Coin");
-            Console.WriteLine("Note: input taken as weight of coin and size of the coin");
+            Console.WriteLine("Note: input taken as weight of coin and size of the coin one by one");
             var weight = Console.ReadLine();
             var size = Console.ReadLine();
             customer.ValidateInsertedCoin(weight, size, out customer.coinvalue);
@@ -120,21 +120,21 @@ namespace VendingMachine
         {
             customer.DisplayProductDetails();
             var product = Console.ReadLine();
-            int choosenProduct = int.Parse(product == null ? "0" : product);
+            var choosenProduct = int.Parse(product == "" ? "0" : product);
             switch (choosenProduct)
             {
                 case 1:
-                    Console.Write("Choosen Product is Cola ");
+                    Console.Write("Chosen Product is Cola ");
                     customer.balance = VendingMachineConfig.ColaPrice - customer.currentamount;
                     customer.productamount = VendingMachineConfig.ColaPrice;
                     break;
                 case 2:
-                    Console.Write("Choosen Product is Chips ");
+                    Console.Write("Chosen Product is Chips ");
                     customer.balance = VendingMachineConfig.ChipsPrice - customer.currentamount;
                     customer.productamount = VendingMachineConfig.ChipsPrice;
                     break;
                 case 3:
-                    Console.Write("Choosen Product is Candy ");
+                    Console.Write("Chosen Product is Candy ");
                     customer.balance = VendingMachineConfig.CandyPrice - customer.currentamount;
                     customer.productamount = VendingMachineConfig.CandyPrice;
                     break;
@@ -164,8 +164,11 @@ namespace VendingMachine
                 }
                 else if (customer.input == "3")
                 {
-                    Console.WriteLine("Please collect your balance");
+                    Console.WriteLine("Please collect your balance $"+customer.currentamount);
                     customer.currentamount = 0;
+                    Thread.Sleep(3000);
+                    Console.Clear();
+
                     customer.GetCoinDetails();
                 }
                 else if (customer.input == "0")
@@ -191,6 +194,8 @@ namespace VendingMachine
                     else if (val == 1)
                     {
                         Console.WriteLine("Please Insert coins for the amount $" + customer.balance);
+                        Console.WriteLine("Note: input taken as weight of coin and size of the coin one by one");
+                        Console.WriteLine("Please click Enter if finished loading coins");
                         while (customer.input != "Enter")
                         {
                             var weight = Console.ReadLine();
